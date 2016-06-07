@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Calculator</string>
+    <string name="clip_name">Calculate</string>
+    <string name="setting_clip">Clipboard Event</string>
+    <string name="setting_round">Round num</string>
+</resources>

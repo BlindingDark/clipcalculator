@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">剪贴板计算器</string>
+    <string name="clip_name">求值</string>
+    <string name="setting_clip">复制时是否触发计算动作</string>
+    <string name="setting_round">保留小数位数</string>
+</resources>

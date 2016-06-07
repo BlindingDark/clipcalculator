@@ -1,0 +1,118 @@
+package blindingdark.person.calculator.service;
+
+
+import android.app.Service;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.IBinder;
+import android.support.v7.preference.PreferenceManager;
+import android.text.TextUtils;
+import android.widget.Toast;
+
+import blindingdark.person.calculator.configuration.Calculator;
+import blindingdark.person.calculator.configuration.ClipServer;
+import blindingdark.person.calculator.tools.calculate.Core;
+
+
+public class ClipboardService extends Service {
+    private boolean mRegistered = false;
+
+    public ClipboardService() {
+    }
+
+    public void onCreate() {
+        synchronized (mClipListener) {
+            if (!mRegistered) {
+                ClipboardManager clipboardManager =
+                        (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                clipboardManager.addPrimaryClipChangedListener(mClipListener);
+                mRegistered = true;
+            }
+        }
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return START_STICKY;
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        // TODO: Return the communication channel to the service.
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    ClipboardManager.OnPrimaryClipChangedListener mClipListener =
+            new ClipboardManager.OnPrimaryClipChangedListener() {
+                @Override
+                public void onPrimaryClipChanged() {
+
+                    if (!isClipServerOpen()) {
+                        return;
+                    }
+
+                    final ClipboardManager clipboard =
+                            (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData data = clipboard.getPrimaryClip();
+
+                    if (data == null) {
+                        return;
+                    }
+
+                    CharSequence CSlabel = data.getDescription().getLabel();
+                    if (CSlabel != null) {
+                        if (Calculator.result.equals(CSlabel.toString())) {
+                            return;
+                        }
+                    }
+
+                    String text = clipboard.getPrimaryClip().getItemAt(0).getText().toString();
+
+                    if (text != null) {
+                        text = text.trim();
+                    }
+
+                    if (!TextUtils.isEmpty(text)) {
+                        String strResult = Core.eval(text.toString());
+
+                        //2016/6/7 0007 自动复制到剪切板
+                        if (!(Calculator.error.equals(strResult))) {
+                            ClipboardManager clip = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                            clip.setPrimaryClip(ClipData.newPlainText(Calculator.result, strResult));
+                        }
+
+                        Toast.makeText(getApplicationContext(), strResult, Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mRegistered) {
+            ClipboardManager clipboardManager =
+                    (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            clipboardManager.removePrimaryClipChangedListener(mClipListener);
+        }
+    }
+
+    public static void start(Context context) {
+        context.startService(new Intent(context, ClipboardService.class));
+    }
+
+    private boolean isClipServerOpen() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String clipIsOpen = preferences.getString(ClipServer.isOpen, "true");
+
+        if ("false".equals(clipIsOpen)) {
+            return false;
+        }
+
+        return true;
+    }
+}
+
