@@ -1,5 +1,7 @@
 package blindingdark.person.calculator.tools.calculate;
 
+import android.util.Log;
+
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
@@ -20,6 +22,8 @@ public class Core {
             return "error";
         }
         strResult = new DecimalFormat("###,###.##########").format(result);
+
+
         return strResult;
     }
 }

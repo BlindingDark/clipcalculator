@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Switch;
 
 
-import blindingdark.person.calculator.configuration.ClipServer;
+import blindingdark.person.calculator.configuration.Settings;
 import blindingdark.person.calculator.service.ClipboardService;
 
 
@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     Switch clipServerSwitch;
+    Switch autoCopySwitch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -28,35 +30,50 @@ public class MainActivity extends AppCompatActivity {
         editor = preferences.edit();
 
         clipServerSwitch = (Switch) findViewById(R.id.clip_isOpen);
-        String clipIsOpen = preferences.getString(ClipServer.isOpen, "noSet");
+        autoCopySwitch = (Switch) findViewById(R.id.autoCopy_isOpen);
 
-        if ("noSet".equals(clipIsOpen)){
-            editor = preferences.edit();
-            editor.putString(ClipServer.isOpen,"true");
-            editor.commit();
-        }
+        String clipIsOpen = preferences.getString(Settings.isClipServerOpen, "true");
+        String isAutoCopyOpen = preferences.getString(Settings.isAutoCopyOpen, "true");
 
-        if("true".equals(clipIsOpen)){
+        // switch clipServer
+        if ("true".equals(clipIsOpen)) {
             clipServerSwitch.setChecked(true);
         }
 
-        if("false".equals(clipIsOpen)){
+        if ("false".equals(clipIsOpen)) {
             clipServerSwitch.setChecked(false);
+        }
+
+        // switch autoCopy
+        if ("true".equals(isAutoCopyOpen)) {
+            autoCopySwitch.setChecked(true);
+        }
+
+        if ("false".equals(isAutoCopyOpen)) {
+            autoCopySwitch.setChecked(false);
         }
 
     }
 
 
     public void clipOpenChange(View view) {
+        editor.remove(Settings.isClipServerOpen);
         if (clipServerSwitch.isChecked()) {
-            editor.remove(ClipServer.isOpen);
-            editor.putString(ClipServer.isOpen,"true");
-            editor.commit();
-        }else{
-            editor.remove(ClipServer.isOpen);
-            editor.putString(ClipServer.isOpen,"false");
-            editor.commit();
+            editor.putString(Settings.isClipServerOpen, "true");
+        } else {
+            editor.putString(Settings.isClipServerOpen, "false");
         }
+        editor.commit();
     }
 
+    public void autoCopyChange(View view) {
+
+        editor.remove(Settings.isAutoCopyOpen);
+        if (autoCopySwitch.isChecked()) {
+            editor.putString(Settings.isAutoCopyOpen, "true");
+        } else {
+            editor.putString(Settings.isAutoCopyOpen, "false");
+        }
+        editor.commit();
+    }
 }

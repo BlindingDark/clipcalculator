@@ -4,4 +4,5 @@
     <string name="clip_name">求值</string>
     <string name="setting_clip">复制时是否触发计算动作</string>
     <string name="setting_round">保留小数位数</string>
+    <string name="auto_copy">自动复制结果到剪切板</string>
 </resources>

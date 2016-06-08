@@ -14,9 +14,25 @@
         android:layout_height="wrap_content"
         android:text="@string/setting_clip"
         android:id="@+id/clip_isOpen"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
         android:checked="true"
-        android:onClick="clipOpenChange"/>
+        android:onClick="clipOpenChange"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/autoCopy_isOpen"
+        android:layout_alignEnd="@+id/autoCopy_isOpen" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/auto_copy"
+        android:id="@+id/autoCopy_isOpen"
+        android:checked="true"
+        android:onClick="autoCopyChange"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/clip_isOpen"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

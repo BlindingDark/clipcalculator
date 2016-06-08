@@ -13,8 +13,9 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import blindingdark.person.calculator.configuration.Calculator;
-import blindingdark.person.calculator.configuration.ClipServer;
+import blindingdark.person.calculator.configuration.Settings;
 import blindingdark.person.calculator.tools.calculate.Core;
+import blindingdark.person.calculator.tools.system.CopyToClip;
 
 
 public class ClipboardService extends Service {
@@ -77,13 +78,10 @@ public class ClipboardService extends Service {
 
                     if (!TextUtils.isEmpty(text)) {
                         String strResult = Core.eval(text.toString());
-
-                        //2016/6/7 0007 自动复制到剪切板
-                        if (!(Calculator.error.equals(strResult))) {
-                            ClipboardManager clip = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                            clip.setPrimaryClip(ClipData.newPlainText(Calculator.result, strResult));
+                        //复制到剪切板
+                        if(isAutoCopyOpen()){
+                            CopyToClip.copyResult(strResult, (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE));
                         }
-
                         Toast.makeText(getApplicationContext(), strResult, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -106,9 +104,20 @@ public class ClipboardService extends Service {
 
     private boolean isClipServerOpen() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String clipIsOpen = preferences.getString(ClipServer.isOpen, "true");
+        String clipIsOpen = preferences.getString(Settings.isClipServerOpen, "true");
 
         if ("false".equals(clipIsOpen)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isAutoCopyOpen() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String isAutoCopyOpen = preferences.getString(Settings.isAutoCopyOpen, "true");
+
+        if ("false".equals(isAutoCopyOpen)) {
             return false;
         }
 
