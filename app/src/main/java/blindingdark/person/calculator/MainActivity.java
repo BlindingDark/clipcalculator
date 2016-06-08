@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
+    Switch clipServerSwitch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = preferences.edit();
 
+        clipServerSwitch = (Switch) findViewById(R.id.clip_isOpen);
         String clipIsOpen = preferences.getString(ClipServer.isOpen, "noSet");
 
         if ("noSet".equals(clipIsOpen)){
@@ -34,13 +36,19 @@ public class MainActivity extends AppCompatActivity {
             editor.commit();
         }
 
+        if("true".equals(clipIsOpen)){
+            clipServerSwitch.setChecked(true);
+        }
+
+        if("false".equals(clipIsOpen)){
+            clipServerSwitch.setChecked(false);
+        }
+
     }
 
 
     public void clipOpenChange(View view) {
-        Switch clipIsOpen = (Switch) findViewById(R.id.clip_isOpen);
-
-        if (clipIsOpen.isChecked()) {
+        if (clipServerSwitch.isChecked()) {
             editor.remove(ClipServer.isOpen);
             editor.putString(ClipServer.isOpen,"true");
             editor.commit();
@@ -50,4 +58,5 @@ public class MainActivity extends AppCompatActivity {
             editor.commit();
         }
     }
+
 }
