@@ -42,7 +42,6 @@ public class ClipboardService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
@@ -77,7 +76,12 @@ public class ClipboardService extends Service {
                     }
 
                     if (!TextUtils.isEmpty(text)) {
-                        String strResult = Core.eval(text.toString());
+                        String strResult;
+                        if (isBigNumMode()){
+                            strResult = Core.evalBigNumber(text.toString());
+                        }else{
+                            strResult = Core.eval(text.toString());
+                        }
                         //复制到剪切板
                         if(isAutoCopyOpen()){
                             CopyToClip.copyResult(strResult, (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE));
@@ -121,6 +125,16 @@ public class ClipboardService extends Service {
             return false;
         }
 
+        return true;
+    }
+
+    private boolean isBigNumMode() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String isBigNumMode = preferences.getString(Settings.isBigNumMode, "true");
+
+        if ("false".equals(isBigNumMode)) {
+            return false;
+        }
         return true;
     }
 }

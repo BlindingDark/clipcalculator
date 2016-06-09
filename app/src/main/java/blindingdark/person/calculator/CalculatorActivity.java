@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 import android.content.ClipboardManager;
 
@@ -33,12 +32,19 @@ public class CalculatorActivity extends AppCompatActivity {
     private void processIntent(Intent intent) {
 
         String action = intent.getAction();
+        String strResult;
 
         if (Intent.ACTION_PROCESS_TEXT.equals(action)) {
             // Text shared with app via Intent
             CharSequence text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
             if (!TextUtils.isEmpty(text)) {
-                String strResult = Core.eval(text.toString());
+
+                if (isBigNumMode()){
+                    strResult = Core.evalBigNumber(text.toString());
+                }else{
+                    strResult = Core.eval(text.toString());
+                }
+
                 //自动复制
                 if (isAutoCopyOpen()) {
                     CopyToClip.copyResult(strResult, (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE));
@@ -60,4 +66,13 @@ public class CalculatorActivity extends AppCompatActivity {
         return true;
     }
 
+    private boolean isBigNumMode() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String isBigNumMode = preferences.getString(Settings.isBigNumMode, "true");
+
+        if ("false".equals(isBigNumMode)) {
+            return false;
+        }
+        return true;
+    }
 }

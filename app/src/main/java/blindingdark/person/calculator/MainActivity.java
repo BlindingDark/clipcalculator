@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     Switch clipServerSwitch;
     Switch autoCopySwitch;
+    Switch bigNumModeSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +32,11 @@ public class MainActivity extends AppCompatActivity {
 
         clipServerSwitch = (Switch) findViewById(R.id.clip_isOpen);
         autoCopySwitch = (Switch) findViewById(R.id.autoCopy_isOpen);
+        bigNumModeSwitch = (Switch) findViewById(R.id.bigNumber_isOpen);
 
         String clipIsOpen = preferences.getString(Settings.isClipServerOpen, "true");
         String isAutoCopyOpen = preferences.getString(Settings.isAutoCopyOpen, "true");
+        String isBigNumMode = preferences.getString(Settings.isBigNumMode, "true");
 
         // switch clipServer
         if ("true".equals(clipIsOpen)) {
@@ -51,6 +54,15 @@ public class MainActivity extends AppCompatActivity {
 
         if ("false".equals(isAutoCopyOpen)) {
             autoCopySwitch.setChecked(false);
+        }
+
+        // switch bigNumMode
+        if ("true".equals(isBigNumMode)) {
+            bigNumModeSwitch.setChecked(true);
+        }
+
+        if ("false".equals(isBigNumMode)) {
+            bigNumModeSwitch.setChecked(false);
         }
 
     }
@@ -73,6 +85,17 @@ public class MainActivity extends AppCompatActivity {
             editor.putString(Settings.isAutoCopyOpen, "true");
         } else {
             editor.putString(Settings.isAutoCopyOpen, "false");
+        }
+        editor.commit();
+    }
+
+    public void bigNumberModeChange(View view) {
+
+        editor.remove(Settings.isBigNumMode);
+        if (bigNumModeSwitch.isChecked()) {
+            editor.putString(Settings.isBigNumMode, "true");
+        } else {
+            editor.putString(Settings.isBigNumMode, "false");
         }
         editor.commit();
     }

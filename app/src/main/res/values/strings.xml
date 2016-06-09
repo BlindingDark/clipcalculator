@@ -4,4 +4,6 @@
     <string name="setting_clip">Clipboard Event</string>
     <string name="setting_round">Round num</string>
     <string name="auto_copy">Auto Copy</string>
+    <string name="bigNumber">Big Number Mode</string>
+    <string name="bigNumberInfo">Only support + - * /</string>
 </resources>
