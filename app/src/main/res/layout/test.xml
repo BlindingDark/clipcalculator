@@ -12,10 +12,67 @@
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Clipboard"
-        android:id="@+id/switch1"
+        android:text="@string/setting_clip"
+        android:id="@+id/clip_isOpen"
+        android:checked="true"
+        android:onClick="clipOpenChange"
         android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:checked="false" />
+        android:layout_alignRight="@+id/autoCopy_isOpen"
+        android:layout_alignEnd="@+id/autoCopy_isOpen" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/auto_copy"
+        android:id="@+id/autoCopy_isOpen"
+        android:checked="true"
+        android:onClick="autoCopyChange"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/clip_isOpen"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/significant_figure"
+        android:id="@+id/significant_figure"
+        android:textColor="#000000"
+        android:layout_below="@+id/autoCopy_isOpen"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="28dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/bigNumberInfo"
+        android:id="@+id/bigNumberInfo"
+        android:layout_below="@+id/significant_figure_spinner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/significant_figure"
+        android:layout_alignRight="@+id/bigNumberInfo"
+        android:layout_alignEnd="@+id/bigNumberInfo"
+        android:id="@+id/space"
+        android:layout_alignBottom="@+id/significant_figure"
+        android:layout_alignTop="@+id/significant_figure" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/significant_figure_spinner"
+        android:layout_toRightOf="@+id/bigNumberInfo"
+        android:layout_toEndOf="@+id/bigNumberInfo"
+        android:layout_alignTop="@+id/space" />
 </RelativeLayout>

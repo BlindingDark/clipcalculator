@@ -2,26 +2,41 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "blindingdark.person.calculator"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "1.2"
     }
+
+    signingConfigs {
+        release {
+            storeFile file("C:\\Users\\BlindingDark\\androidsign\\blindingdark.jks")
+            storePassword "-ASAPTX4869"
+            keyAlias "blindingdark"
+            keyPassword "-ASAPTX4869"
+        }
+    }
+
+
     buildTypes {
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:preference-v14:23+'
     testCompile 'junit:junit:4.12'
     compile 'net.objecthunter:exp4j:0.4.7'

@@ -77,13 +77,12 @@ public class ClipboardService extends Service {
 
                     if (!TextUtils.isEmpty(text)) {
                         String strResult;
-                        if (isBigNumMode()){
-                            strResult = Core.evalBigNumber(text.toString());
-                        }else{
-                            strResult = Core.eval(text.toString());
-                        }
+
+                        String significantSetting = getSignificantSetting();
+                        strResult = Core.eval(text.toString(), significantSetting);
+
                         //复制到剪切板
-                        if(isAutoCopyOpen()){
+                        if (isAutoCopyOpen()) {
                             CopyToClip.copyResult(strResult, (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE));
                         }
                         Toast.makeText(getApplicationContext(), strResult, Toast.LENGTH_SHORT).show();
@@ -128,14 +127,10 @@ public class ClipboardService extends Service {
         return true;
     }
 
-    private boolean isBigNumMode() {
+    private String getSignificantSetting() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String isBigNumMode = preferences.getString(Settings.isBigNumMode, "true");
-
-        if ("false".equals(isBigNumMode)) {
-            return false;
-        }
-        return true;
+        String significant = preferences.getString(Settings.significantFigure, Settings.fifteen);
+        return significant;
     }
 }
 

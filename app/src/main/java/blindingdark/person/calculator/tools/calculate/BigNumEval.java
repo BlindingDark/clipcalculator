@@ -61,7 +61,7 @@ public class BigNumEval {
                 try {
                     r = a.divide(b, BigDecimal.ROUND_UNNECESSARY);
                 } catch (Exception e) {
-                    r = a.divide(b, 16, BigDecimal.ROUND_HALF_UP);
+                    r = a.divide(b, 32, BigDecimal.ROUND_HALF_UP);
                 }
 
                 break;

@@ -39,11 +39,8 @@ public class CalculatorActivity extends AppCompatActivity {
             CharSequence text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
             if (!TextUtils.isEmpty(text)) {
 
-                if (isBigNumMode()){
-                    strResult = Core.evalBigNumber(text.toString());
-                }else{
-                    strResult = Core.eval(text.toString());
-                }
+                String significantSetting =  getSignificantSetting();
+                strResult = Core.eval(text.toString(), significantSetting);
 
                 //自动复制
                 if (isAutoCopyOpen()) {
@@ -66,13 +63,9 @@ public class CalculatorActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean isBigNumMode() {
+    private String getSignificantSetting() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String isBigNumMode = preferences.getString(Settings.isBigNumMode, "true");
-
-        if ("false".equals(isBigNumMode)) {
-            return false;
-        }
-        return true;
+        String significant = preferences.getString(Settings.significantFigure, Settings.fifteen);
+        return  significant;
     }
 }

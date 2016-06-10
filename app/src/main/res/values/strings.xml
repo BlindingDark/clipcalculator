@@ -1,9 +1,15 @@
 <resources>
     <string name="app_name">Calculator</string>
     <string name="clip_name">Calculate</string>
-    <string name="setting_clip">Clipboard Event</string>
+    <string name="setting_clip">Clipboard event</string>
     <string name="setting_round">Round num</string>
-    <string name="auto_copy">Auto Copy</string>
-    <string name="bigNumber">Big Number Mode</string>
-    <string name="bigNumberInfo">Only support + - * /</string>
+    <string name="auto_copy">Auto copy</string>
+    <string name="bigNumber">Big number mode</string>
+    <string name="bigNumberInfo">Infinity mode ONLY support + - * /</string>
+    <string name="significant_figure">Significant figure</string>
+
+    <string name="ten">ten</string>
+    <string name="fifteen">fifteen</string>
+    <string name="twenty">twenty</string>
+    <string name="infinity">Infinity</string>
 </resources>
