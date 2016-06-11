@@ -3,7 +3,6 @@
     <string-array name="significant_figure">
         <item>@string/ten</item>
         <item>@string/fifteen</item>
-        <item>@string/twenty</item>
         <item>@string/infinity</item>
     </string-array>
 </resources>

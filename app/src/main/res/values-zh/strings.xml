@@ -7,9 +7,8 @@
     <string name="auto_copy">自动复制结果到剪切板</string>
     <string name="bigNumber">切换到大数处理模式</string>
     <string name="bigNumberInfo">大数处理模式仅支持 + - * /</string>
-    <string name="infinity">大数处理模式</string>
+    <string name="infinity">大数处理(无限精度)</string>
     <string name="significant_figure">计算精度</string>
     <string name="fifteen">小数点后15位</string>
     <string name="ten">小数点后10位</string>
-    <string name="twenty">小数点后20位</string>
 </resources>

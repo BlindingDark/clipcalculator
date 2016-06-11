@@ -73,6 +73,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/significant_figure_spinner"
         android:layout_toRightOf="@+id/bigNumberInfo"
-        android:layout_toEndOf="@+id/bigNumberInfo"
-        android:layout_alignTop="@+id/space" />
+        android:layout_alignTop="@+id/space"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

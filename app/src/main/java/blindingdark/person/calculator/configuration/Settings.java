@@ -11,6 +11,6 @@ public class Settings {
 
     public static String ten = "blindingdark.person.calculator.ten";
     public static String fifteen = "blindingdark.person.calculator.fifteen";
-    public static String twenty = "blindingdark.person.calculator.twenty";
     public static String bigNumMode = "blindingdark.person.calculator.bigNumMode";
+    public static String twenty = "blindingdark.person.calculator.twenty";
 }

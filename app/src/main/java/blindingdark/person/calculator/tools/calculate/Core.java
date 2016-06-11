@@ -4,7 +4,6 @@ package blindingdark.person.calculator.tools.calculate;
 import android.util.Log;
 
 
-
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
@@ -21,9 +20,9 @@ import blindingdark.person.calculator.configuration.Settings;
  */
 public class Core {
 
-    static public String eval(String expression,String significantSetting) {
+    static public String eval(String expression, String significantSetting) {
 
-        if(Settings.bigNumMode.equals(significantSetting)){
+        if (Settings.bigNumMode.equals(significantSetting)) {
             return evalBigNumber(expression);
         }
 
@@ -38,14 +37,15 @@ public class Core {
             return strResult;
         }
 
-        if (Settings.ten.equals(significantSetting)){
+        if (Settings.ten.equals(significantSetting)) {
             strResult = new DecimalFormat("###,###.##########").format(result);
         }
-        if (Settings.fifteen.equals(significantSetting)){
+        if (Settings.fifteen.equals(significantSetting)) {
             strResult = new DecimalFormat("###,###.###############").format(result);
         }
-        if (Settings.twenty.equals(significantSetting)){
-            strResult = new DecimalFormat("###,###.####################").format(result);
+        //兼容旧版
+        if (Settings.twenty.equals(significantSetting)) {
+            return evalBigNumber(expression);
         }
 
         return strResult;
@@ -53,14 +53,14 @@ public class Core {
 
 
     static public String eval(String expression) {
-      return eval(expression, Settings.fifteen);
+        return eval(expression, Settings.fifteen);
     }
 
     static public String evalBigNumber(String expression) {
         // BigDecimal
         try {
-            return  BigNumEval.eval(expression);
-        }catch (Exception e){
+            return BigNumEval.eval(expression);
+        } catch (Exception e) {
             return Calculator.error;
         }
     }
