@@ -45,7 +45,7 @@ public class Core {
         }
         //兼容旧版
         if (Settings.twenty.equals(significantSetting)) {
-            return evalBigNumber(expression);
+            strResult = new DecimalFormat("###,###.###############").format(result);
         }
 
         return strResult;

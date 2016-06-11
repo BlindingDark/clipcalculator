@@ -126,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
         }
         if (Settings.twenty.equals(significant)) {
             spinner.setSelection(1);
+            editor.putString(Settings.significantFigure, Settings.fifteen);
+            editor.commit();
         }
     }
 
