@@ -15,9 +15,9 @@ android {
     signingConfigs {
         release {
             storeFile file("C:\\Users\\BlindingDark\\androidsign\\blindingdark.jks")
-            storePassword "-ASAPTX4869"
+            storePassword ""
             keyAlias "blindingdark"
-            keyPassword "-ASAPTX4869"
+            keyPassword ""
         }
     }
 
